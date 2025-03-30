@@ -29,13 +29,13 @@ namespace MauiAppMinhasCompras.Helpers
         }
 
         // Método para atualizar um produto existente na tabela
-        public Task<List<Produtos>> Update(Produtos p)
+        public Task<int> Update(Produtos p)
         {
             // Define a query SQL para atualizar os dados do produto
-            string sql = "UPDATE Produto SET Descricao=?, Quantidade=?, Preco=? WHERE Id=?";
+            string sql = "UPDATE Produtos SET Descricao=?, Quantidade=?, Preco=? WHERE Id=?";
 
             // Executa a query de atualização no banco de dados
-            return _conn.QueryAsync<Produtos>(
+            return _conn.ExecuteAsync(
                 sql, p.Descricao, p.Quantidade, p.Preco, p.Id
             );
         }
@@ -56,10 +56,10 @@ namespace MauiAppMinhasCompras.Helpers
         public Task<List<Produtos>> Search(string q)
         {
             // Define a query SQL para buscar produtos cujas descrições contenham a string fornecida
-            string sql = "SELECT * FROM Produtos WHERE descricao LIKE '%" + q + "%'";
+            string sql = "SELECT * FROM Produtos WHERE Descricao LIKE ?";
 
             // Executa a query e retorna os resultados
-            return _conn.QueryAsync<Produtos>(sql);
+            return _conn.QueryAsync<Produtos>(sql, "%" + q + "%");
         }
     }
 }
