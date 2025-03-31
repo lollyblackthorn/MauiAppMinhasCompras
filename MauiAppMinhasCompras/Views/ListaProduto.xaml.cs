@@ -76,59 +76,22 @@ public partial class ListaProduto : ContentPage //pagina que lista os produtos
         DisplayAlert("Total dos Produtos", msg, "OK");
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //Agenda 5-------------------------------------------------------------------
     private async void MenuItem_Clicked(object sender, EventArgs e)
     {
         try
         {
-            MenuItem selecinado = sender as MenuItem;
+            MenuItem selecinado = sender as MenuItem;// item selecionado
 
-            Produto p = selecinado.BindingContext as Produto;
+            Produto p = selecinado.BindingContext as Produto;//produto selecionado
 
-            bool confirm = await DisplayAlert(
+            bool confirm = await DisplayAlert(//confirmação de exclusão
                 "Tem Certeza?", $"Remover {p.Descricao}?", "Sim", "Não");
 
             if(confirm)
             {
-                await App.Db.Delete(p.Id);
-                lista.Remove(p);
+                await App.Db.Delete(p.Id);//remove o produto do bd
+                lista.Remove(p);//remove o produto da deletado lista view
             }
         }
         catch (Exception ex)
@@ -140,8 +103,8 @@ public partial class ListaProduto : ContentPage //pagina que lista os produtos
     private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         try
-        {
-            Produto p = e.SelectedItem as Produto;
+        {//quando selecionar o item, ele abre a tela de editar
+            Produto p = e.SelectedItem as Produto;//produto selecionado
 
             Navigation.PushAsync(new Views.EditarProduto
             {

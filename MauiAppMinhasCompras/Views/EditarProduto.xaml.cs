@@ -13,9 +13,9 @@ public partial class EditarProduto : ContentPage
     {
         try
         {
-            Produto produto_anexado = BindingContext as Produto;
+            Produto produto_anexado = BindingContext as Produto;//produto selecionado
 
-            Produto p = new Produto
+            Produto p = new Produto//cria um novo produto
             {
                 Id = produto_anexado.Id,
                 Descricao = txt_descricao.Text,
@@ -23,9 +23,9 @@ public partial class EditarProduto : ContentPage
                 Preco = Convert.ToDouble(txt_preco.Text)
             };
 
-            await App.Db.Update(p);
+            await App.Db.Update(p);//atualiza o produto no bd
             await DisplayAlert("Sucesso!", "Registro Atualizado", "OK");
-            await Navigation.PopAsync();
+            await Navigation.PopAsync();//retorna para a tela anterior
         }
         catch (Exception ex)
         {
