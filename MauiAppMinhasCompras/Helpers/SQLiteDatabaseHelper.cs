@@ -1,5 +1,6 @@
 ﻿using MauiAppMinhasCompras.Models;
 using SQLite;
+using System.Collections;
 
 namespace MauiAppMinhasCompras.Helpers
 {
@@ -67,6 +68,26 @@ namespace MauiAppMinhasCompras.Helpers
             {
                 Console.WriteLine($"Erro ao migrar banco: {ex.Message}");
             }
+        }
+        // SQLiteDatabaseHelper.cs
+
+        public async Task<List<RelatorioCategoria>> GetGastosPorCategoria()
+        {
+            string sql = @"
+                SELECT Categoria, SUM(Preco * Quantidade) as TotalGasto
+                FROM Produto
+                GROUP BY Categoria
+                ORDER BY TotalGasto DESC";
+
+            // Aqui criamos uma classe que vai conter os dados do relatório
+            var resultados = await _conn.QueryAsync<RelatorioCategoria>(sql);
+
+            return resultados;
+        }
+
+        internal async Task<IList> GetCategorias()
+        {
+            throw new NotImplementedException();
         }
     }
 }
