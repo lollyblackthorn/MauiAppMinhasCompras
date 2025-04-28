@@ -19,7 +19,9 @@ public partial class ListaProduto : ContentPage
         try
         {
             lista.Clear();
+            //recupera os produtos do bd de forma async
             List<Produto> tmp = await App.Db.GetAll();
+            // add os produtos recuperaods na lista
             tmp.ForEach(i => lista.Add(i));
         }
         catch (Exception ex)
@@ -36,9 +38,11 @@ public partial class ListaProduto : ContentPage
             string q = e.NewTextValue;
 
             lst_produtos.IsRefreshing = true;
+
             lista.Clear();
 
             List<Produto> tmp = await App.Db.Search(q);
+            //adiciona os produtos encontrados na lista
             tmp.ForEach(i => lista.Add(i));
         }
         catch (Exception ex)
@@ -55,7 +59,9 @@ public partial class ListaProduto : ContentPage
     private void ToolbarItem_Clicked_1(object sender, EventArgs e)
     {
         double soma = lista.Sum(i => i.Total);
+        //exibe o total em um pop-up
         string msg = $"O total é {soma:C}";
+
         DisplayAlert("Total dos Produtos", msg, "OK");
     }
 
@@ -65,6 +71,7 @@ public partial class ListaProduto : ContentPage
         try
         {
             Navigation.PushAsync(new Views.NovoProduto());
+            }
         }
         catch (Exception ex)
         {
@@ -82,7 +89,7 @@ public partial class ListaProduto : ContentPage
             {
                 bool confirm = await DisplayAlert("Tem Certeza?", $"Remover {p.Descricao}?", "Sim", "Não");
                 if (confirm)
-                {
+            {
                     await App.Db.Delete(p.Id);
                     lista.Remove(p);
                 }
@@ -100,7 +107,9 @@ public partial class ListaProduto : ContentPage
         try
         {
             lista.Clear();
+
             List<Produto> tmp = await App.Db.GetAll();
+
             tmp.ForEach(i => lista.Add(i));
         }
         catch (Exception ex)

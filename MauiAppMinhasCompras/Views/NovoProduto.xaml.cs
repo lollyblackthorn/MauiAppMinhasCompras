@@ -2,7 +2,7 @@ using MauiAppMinhasCompras.Models;
 
 namespace MauiAppMinhasCompras.Views;
 
-public partial class NovoProduto : ContentPage
+public partial class NovoProduto : ContentPage // criando página para adicionar um novo produto
 {
     public NovoProduto()
     {

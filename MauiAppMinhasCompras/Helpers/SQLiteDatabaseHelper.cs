@@ -11,6 +11,7 @@ namespace MauiAppMinhasCompras.Helpers
         public SQLiteDatabaseHelper(string path)
         {
             _conn = new SQLiteAsyncConnection(path);
+            _conn.CreateTableAsync<Produto>().Wait();
         }
 
         // Método para inicializar, criando a tabela e migrando o banco

@@ -6,11 +6,12 @@ namespace MauiAppMinhasCompras.Models
     {
         private string _descricao = string.Empty; // Fix: Initialize with a default non-null value
 
+
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Descricao
         {
-            get => _descricao;
+            get => _descricao; 
             set
             {
                 if (value == null)
